@@ -6,7 +6,7 @@
 #    By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/22 14:30:54 by anomourn          #+#    #+#              #
-#    Updated: 2024/04/22 16:18:13 by anomourn         ###   ########.fr        #
+#    Updated: 2024/04/23 14:45:47 by anomourn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ $(NAME_SERVER): $(OBJ_SERVER)
 	@make -C $(PRINTF)
 	@$(CC) $(FLAGS) $(OBJ_SERVER) $(LIB) -o $(NAME_SERVER)
 
-$(NAME_CLIENT): $(OBJ_CLIENT)
+$(NAME_CLIENT): $(OBJ_CLIENT) 
 	@make -C $(PRINTF)
 	@$(CC) $(FLAGS) $(OBJ_CLIENT) $(LIB) -o $(NAME_CLIENT)
 
