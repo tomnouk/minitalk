@@ -6,13 +6,13 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:30:12 by anomourn          #+#    #+#             */
-/*   Updated: 2024/04/24 16:18:45 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:51:15 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	send_signal(int pid, unsigned int c)
+void	send_signal(int pid, unsigned char c)
 {
 	int	i;
 
@@ -20,12 +20,13 @@ void	send_signal(int pid, unsigned int c)
 	while (i > 0)
 	{
 		i--;
+		c >>= 1;
 		if (c % 2 == 0)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		c >>= 1;
 		usleep(100);
+		//pause();
 	}
 }
 
@@ -42,7 +43,6 @@ int		main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	pid = ft_atoi(argv[1]);
-	//printf("PID : %i\n", pid);
 	if (pid <= 0)
 	{
 		ft_printf("PID invalid\n");
@@ -50,5 +50,7 @@ int		main(int argc, char **argv)
 	}
 	while (argv[2][i])
 		send_signal(pid, argv[2][i++]);
+	send_signal(pid, 0);
+	write(1, "Message sent\n", 13);
 	return (0);
 }
