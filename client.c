@@ -6,7 +6,7 @@
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 14:30:12 by anomourn          #+#    #+#             */
-/*   Updated: 2024/04/29 16:51:15 by anomourn         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:24:13 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,24 @@
 void	send_signal(int pid, unsigned char c)
 {
 	int	i;
+	unsigned char	tmp;
 
 	i = 8;
 	while (i > 0)
 	{
 		i--;
-		c >>= 1;
-		if (c % 2 == 0)
+		tmp = c >> i;
+		if (tmp % 2 == 0)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(100);
-		//pause();
+		usleep(42);
 	}
+}
+
+void	nothing(int sig)
+{
+	(void)sig;
 }
 
 
@@ -37,6 +42,8 @@ int		main(int argc, char **argv)
 	int	pid;
 
 	i = 0;
+	signal(SIGUSR1, nothing);
+	signal(SIGUSR2, nothing);
 	if (argc != 3)
 	{
 		ft_printf("wrong number of arg\n");
@@ -51,6 +58,6 @@ int		main(int argc, char **argv)
 	while (argv[2][i])
 		send_signal(pid, argv[2][i++]);
 	send_signal(pid, 0);
-	write(1, "Message sent\n", 13);
+	ft_printf("Message received\n");
 	return (0);
 }
