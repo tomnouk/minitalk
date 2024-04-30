@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 14:30:12 by anomourn          #+#    #+#             */
-/*   Updated: 2024/04/30 15:27:21 by anomourn         ###   ########.fr       */
+/*   Created: 2024/04/30 15:29:12 by anomourn          #+#    #+#             */
+/*   Updated: 2024/04/30 15:30:35 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	send_signal(int pid, unsigned char c)
+void	send_signal_bonus(int pid, unsigned char c)
 {
 	int				i;
 
@@ -32,7 +32,7 @@ void	send_signal(int pid, unsigned char c)
 	}
 }
 
-void	nothing(int sig)
+void	nothing_bonus(int sig)
 {
 	(void)sig;
 }
@@ -43,8 +43,8 @@ int	main(int argc, char **argv)
 	int	pid;
 
 	i = 0;
-	signal(SIGUSR1, nothing);
-	signal(SIGUSR2, nothing);
+	signal(SIGUSR1, nothing_bonus);
+	signal(SIGUSR2, nothing_bonus);
 	if (argc != 3)
 	{
 		ft_printf("wrong number of arg\n");
@@ -57,8 +57,8 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	while (argv[2][i])
-		send_signal(pid, argv[2][i++]);
-	send_signal(pid, 0);
+		send_signal_bonus(pid, argv[2][i++]);
+	send_signal_bonus(pid, 0);
 	ft_printf("Message received\n");
 	return (0);
 }

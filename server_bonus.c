@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anomourn <anomourn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/22 14:30:06 by anomourn          #+#    #+#             */
-/*   Updated: 2024/04/30 15:26:45 by anomourn         ###   ########.fr       */
+/*   Created: 2024/04/30 15:29:02 by anomourn          #+#    #+#             */
+/*   Updated: 2024/04/30 15:30:42 by anomourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	handle_sig(int bit, siginfo_t *info, void *context)
+void	handle_sig_bonus(int bit, siginfo_t *info, void *context)
 {
 	static unsigned char	c;
 	static int				len;
@@ -39,7 +39,7 @@ int	main(void)
 	struct sigaction	sig;
 
 	ft_printf("PID : %i\n", getpid());
-	sig.sa_sigaction = handle_sig;
+	sig.sa_sigaction = handle_sig_bonus;
 	sigemptyset(&sig.sa_mask);
 	sig.sa_flags = SA_SIGINFO;
 	if (sigaction(SIGUSR1, &sig, NULL) == -1)
